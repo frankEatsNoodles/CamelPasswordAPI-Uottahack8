@@ -4,22 +4,25 @@ import org.apache.camel.Exchange;
 import org.apache.camel.LoggingLevel;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.rest.RestBindingMode;
+import org.springframework.stereotype.Component;
+
 
 import java.util.Map;
 
+@Component
 public class CommonRoute extends RouteBuilder {
 
 
     @Override
     public void configure() throws Exception {
         restConfiguration()
-                .component("servlet")
                 .bindingMode(RestBindingMode.json)
-                .dataFormatProperty("prettyPrint", "true");
+                .dataFormatProperty("prettyPrint", "true")
+                .enableCORS(true);
 
 
 
-        rest("/pass/v1/vault")
+        rest("/v1/pass/vault")
                 .post("/entries")
                 .consumes("application/json")
                 .produces("application/json")
