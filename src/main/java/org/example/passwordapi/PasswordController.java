@@ -10,7 +10,14 @@ public class PasswordController {
 
     private final int SHIFT = 3;
 
-    @PostMapping
+    @GetMapping("/get/{username}")
+    public String getPassword(){
+
+
+        return "Password provided!";
+    }
+
+    @PostMapping("/post")
     public String savePassword(@RequestBody Map<String, Object> passwordData) {
 
         String password = (String) passwordData.get("password");
