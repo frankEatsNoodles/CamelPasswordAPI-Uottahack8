@@ -2,6 +2,7 @@
 .side-layout {
     height: 100vh;
     padding-top: 70px;
+    display: flex;
 }
 
 /* Left-side section of side-layout */
@@ -61,6 +62,14 @@
     margin-right: 8px;
 }
 
+.settings-button .bi-gear-wide-connected {
+  transition: transform 0.5s ease;
+}
+
+.settings-button:hover .bi-gear-wide-connected {
+  transform: rotate(235deg);
+}
+
 /* ------------------------------------------------- All buttons ------------------------------------------------- */
 
 .sidebar button {
@@ -71,7 +80,7 @@
     cursor: pointer;
     color: #ffffff;
     font-family: 'Roboto', Arial, Helvetica, sans-serif;
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: 400;
     width: 95%;
     background-color: #3a3838;

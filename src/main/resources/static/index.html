@@ -14,7 +14,8 @@
         <link rel="stylesheet" href="styles/main.css">
         <link rel="stylesheet" href="styles/header.css">
         <link rel="stylesheet" href="styles/sidebar.css">
-        <link rel="stylesheet" href="styles/main-body.css">
+        <link rel="stylesheet" href="styles/passwordList.css">
+        <link rel="stylesheet" href="styles/addPasswordForm.css">
     </head>
 
     <body>
@@ -22,7 +23,9 @@
         <div class="header">
             <!-- Logo -->
             <div class="header-left-section">
-                <button class="home-button">
+                <button class="home-button" onclick="
+                        window.location.reload();
+                    ">
                     Password Manager
                 </button>
             </div>
@@ -30,7 +33,7 @@
             <!-- Search Bar -->
             <div class="header-middle-section">
                 <div class="search-container">
-                    <input class="search-bar" type="text" placeholder="Search..."/>
+                    <input class="search-bar" type="text" placeholder="Search..." id="search-input" />
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16" stroke-width="4">
                         <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
                     </svg>
@@ -48,7 +51,7 @@
             <aside class="sidebar">
                 <!-- Different Sidebar Functionss-->
                 <div class="password-button-container">
-                    <button class="password-button">
+                    <button class="password-button" id="password-button-id">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-key" viewBox="0 0 16 16">
                             <path d="M0 8a4 4 0 0 1 7.465-2H14a.5.5 0 0 1 .354.146l1.5 1.5a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0L13 9.207l-.646.647a.5.5 0 0 1-.708 0L11 9.207l-.646.647a.5.5 0 0 1-.708 0L9 9.207l-.646.647A.5.5 0 0 1 8 10h-.535A4 4 0 0 1 0 8m4-3a3 3 0 1 0 2.712 4.285A.5.5 0 0 1 7.163 9h.63l.853-.854a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.793-.793-1-1h-6.63a.5.5 0 0 1-.451-.285A3 3 0 0 0 4 5"/>
                             <path d="M4 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
@@ -60,7 +63,7 @@
                 </div>
 
                 <div class="add-password-button-container">
-                    <button class="add-password-button">
+                    <button class="add-password-button" id="add-password-button-id">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-dotted" viewBox="0 0 16 16">
                             <path d="M8 0q-.264 0-.523.017l.064.998a7 7 0 0 1 .918 0l.064-.998A8 8 0 0 0 8 0M6.44.152q-.52.104-1.012.27l.321.948q.43-.147.884-.237L6.44.153zm4.132.271a8 8 0 0 0-1.011-.27l-.194.98q.453.09.884.237zm1.873.925a8 8 0 0 0-.906-.524l-.443.896q.413.205.793.459zM4.46.824q-.471.233-.905.524l.556.83a7 7 0 0 1 .793-.458zM2.725 1.985q-.394.346-.74.74l.752.66q.303-.345.648-.648zm11.29.74a8 8 0 0 0-.74-.74l-.66.752q.346.303.648.648zm1.161 1.735a8 8 0 0 0-.524-.905l-.83.556q.254.38.458.793l.896-.443zM1.348 3.555q-.292.433-.524.906l.896.443q.205-.413.459-.793zM.423 5.428a8 8 0 0 0-.27 1.011l.98.194q.09-.453.237-.884zM15.848 6.44a8 8 0 0 0-.27-1.012l-.948.321q.147.43.237.884zM.017 7.477a8 8 0 0 0 0 1.046l.998-.064a7 7 0 0 1 0-.918zM16 8a8 8 0 0 0-.017-.523l-.998.064a7 7 0 0 1 0 .918l.998.064A8 8 0 0 0 16 8M.152 9.56q.104.52.27 1.012l.948-.321a7 7 0 0 1-.237-.884l-.98.194zm15.425 1.012q.168-.493.27-1.011l-.98-.194q-.09.453-.237.884zM.824 11.54a8 8 0 0 0 .524.905l.83-.556a7 7 0 0 1-.458-.793zm13.828.905q.292-.434.524-.906l-.896-.443q-.205.413-.459.793zm-12.667.83q.346.394.74.74l.66-.752a7 7 0 0 1-.648-.648zm11.29.74q.394-.346.74-.74l-.752-.66q-.302.346-.648.648zm-1.735 1.161q.471-.233.905-.524l-.556-.83a7 7 0 0 1-.793.458zm-7.985-.524q.434.292.906.524l.443-.896a7 7 0 0 1-.793-.459zm1.873.925q.493.168 1.011.27l.194-.98a7 7 0 0 1-.884-.237zm4.132.271a8 8 0 0 0 1.012-.27l-.321-.948a7 7 0 0 1-.884.237l.194.98zm-2.083.135a8 8 0 0 0 1.046 0l-.064-.998a7 7 0 0 1-.918 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z"/>
                         </svg>
@@ -83,12 +86,50 @@
             </aside>
 
             <!-- Main -->
-            <div class="main-container">
+            <main class="main-container">
+                <!-- success message -->
+                <div id="message" class="message">Saved successfully!</div>
 
-            </div>
+                <!-- Popup overlay -->
+                <div id="popup-overlay-id" class="hidden">
+                    <div id="popup-id">
+                        <h2 id="popup-website-id"></h2>
+                        <p>Username: <span id="popup-username-id"></span></p>
+                        <p>Password: <span id="popup-password-id"></span></p>
+                        <button id="close-popup-button-id">Close</button>
+                    </div>
+                </div>
+
+                <section id="password-list-view" class="password-list-view">
+                    <div id="password-container" class="password-container">
+                        <!-- passwords list gets generated here -->
+                    </div>
+                </section>
+
+                <section id="add-password-view" class="add-password-view hidden">
+                    <!-- add password form -->
+                    <div class="add-password-form-container">
+                        <h6>Website</h6>
+                        <input class="website-input" placeholder="Website" type="text" name="" id="website">
+
+                        <h6>Username</h6>
+                        <input class="username-input" placeholder="Username" ="text" name="" id="username">
+
+                        <h6>Password</h6>
+                        <input class="password-input" placeholder="Password" type="text" name="" id="password">
+                        <div class="form-actions">
+                            <button id="cancel-button-id" class="cancel-button">Cancel</button>
+                            <button id="save-button-id" class="save-button">Save</button>
+                        </div>
+                    </div>
+                </section>
+            </main>
         </div>
+
         <!-- Javascript Links -->
-
-
+        <script src="scripts/main.js"></script>
+        <script src="scripts/remove.js"></script>
+        <script src="scripts/closePopUp.js"></script>
+        <script src="scripts/search.js"></script>
     </body>
 </html>
