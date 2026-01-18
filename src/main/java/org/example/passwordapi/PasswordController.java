@@ -34,7 +34,7 @@ public class PasswordController {
 
             // Send POST to Pi receiver
             try {
-                URL url = new URL("http://localhost:5000/store");
+                URL url = new URL("http://10.224.149.15:5000/store");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("POST");
                 conn.setRequestProperty("Content-Type", "application/json");
