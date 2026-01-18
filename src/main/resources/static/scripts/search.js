@@ -5,17 +5,28 @@ function filterPasswords(searchTerm) {
     const userData = JSON.parse(localStorage.getItem("userData")) || [];
     
     if (!searchTerm.trim()) {
-        // If search is empty, show all passwords
-        renderPasswordList();
+        // If search is empty, show nothing
+        showEmptyState();
         return;
     }
     
     const filteredData = userData.filter(entry => {
-        // Search only in website name
-        return entry.website.toLowerCase().includes(searchTerm.toLowerCase());
+        // Search for EXACT match only (case-insensitive)
+        return entry.website.toLowerCase() === searchTerm.toLowerCase();
     });
     
     renderFilteredPasswordList(filteredData);
+}
+
+// Function to show empty state (nothing)
+function showEmptyState() {
+    passwordContainer.innerHTML = "";
+    const emptyState = document.createElement("div");
+    emptyState.classList.add("empty-state");
+    emptyState.innerHTML = `
+        <p>Type a website name to search for passwords</p>
+    `;
+    passwordContainer.appendChild(emptyState);
 }
 
 // Function to render filtered password list
@@ -24,12 +35,12 @@ function renderFilteredPasswordList(filteredData) {
     passwordContainer.innerHTML = "";
 
     if (filteredData.length === 0) {
-        // Show message if no results found
+        // Show message if no exact matches found
         const noResults = document.createElement("div");
         noResults.classList.add("no-results");
         noResults.innerHTML = `
-            <p>No websites found matching "${searchInput.value}".</p>
-            <p>Try searching by website name.</p>
+            <p>No exact match found for "${searchInput.value}".</p>
+            <p>Try typing the exact website name.</p>
         `;
         passwordContainer.appendChild(noResults);
         return;
@@ -42,19 +53,12 @@ function renderFilteredPasswordList(filteredData) {
         
         // Create the website button
         const websiteButton = document.createElement("button");
-        
-        // Highlight search term in the website name only
-        const searchTerm = searchInput.value.toLowerCase();
-        const websiteText = highlightText(entry.website, searchTerm);
-        
-        websiteButton.innerHTML = `
-            <div class="website-name">${websiteText}</div>
-        `;
+        websiteButton.textContent = entry.website;
         websiteButton.classList.add("website-button");
         
         // Create remove button
         const removeButton = document.createElement("button");
-        removeButton.innerHTML = "×";
+        removeButton.innerHTML = "GET";
         removeButton.classList.add("remove-button");
         removeButton.title = "Remove password";
         
@@ -68,15 +72,16 @@ function renderFilteredPasswordList(filteredData) {
                 item.username === entry.username
             );
             if (originalIndex !== -1) {
-                showRemoveConfirmation(originalIndex, entry.website);
+                doGet(originalIndex, entry.website);
             }
         });
         
+        /***************************************** SHOW USERNAME AND PASSWORD ******************************************/
         // Add event listener to website button to show password details
         websiteButton.addEventListener("click", () => {
             document.getElementById("popup-website-id").textContent = entry.website;
-            document.getElementById("popup-username-id").textContent = entry.username;
-            document.getElementById("popup-password-id").textContent = entry.password;
+            //document.getElementById("popup-username-id").textContent = entry.username;
+            //document.getElementById("popup-password-id").textContent = entry.password;
             document.getElementById("popup-overlay-id").classList.remove("hidden");
         });
 
@@ -87,13 +92,13 @@ function renderFilteredPasswordList(filteredData) {
     });
 }
 
-// Function to highlight search terms in text
-function highlightText(text, searchTerm) {
-    if (!searchTerm.trim()) return text;
+// Remove the highlightText function since we don't need highlighting for exact matches
+// function highlightText(text, searchTerm) {
+//     if (!searchTerm.trim()) return text;
     
-    const regex = new RegExp(`(${searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
-    return text.replace(regex, '<span class="highlight">$1</span>');
-}
+//     const regex = new RegExp(`(${searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+//     return text.replace(regex, '<span class="highlight">$1</span>');
+// }
 
 // Add event listeners for search
 searchInput.addEventListener('input', (e) => {
@@ -137,29 +142,57 @@ function addClearSearchButton() {
 // Initialize clear button
 addClearSearchButton();
 
-// Update password button click to clear search
-const originalPasswordButtonClick = passwordButton.onclick;
+// Update password button click to clear search and show empty state
 passwordButton.addEventListener("click", () => {
     passwordListView.classList.remove("hidden");
     addPasswordView.classList.add("hidden");
     
-    // Clear search and show all passwords
+    // Clear search and show empty state
     searchInput.value = '';
     const clearButton = document.querySelector('.clear-search-button');
     if (clearButton) {
         clearButton.style.display = 'none';
     }
-    renderPasswordList();
+    showEmptyState();
 });
 
-// Update the renderPasswordList function to handle search state
-const originalRenderPasswordList = renderPasswordList;
-renderPasswordList = function() {
-    // Only render full list if search is empty
+// Also call showEmptyState when DOM is loaded instead of renderPasswordList
+document.addEventListener("DOMContentLoaded", () => {
+    let userData = JSON.parse(localStorage.getItem("userData"));
+
+    if (!Array.isArray(userData)) {
+        userData = [];
+        localStorage.setItem("userData", JSON.stringify(userData));
+    }
+
+    // Show empty state instead of password list
+    showEmptyState();
+});
+
+// Remove the override of renderPasswordList function since we're using empty state
+// const originalRenderPasswordList = renderPasswordList;
+// renderPasswordList = function() {
+//     // Only render full list if search is empty
+//     if (!searchInput.value.trim()) {
+//         originalRenderPasswordList();
+//     } else {
+//         // Otherwise, keep the search results
+//         filterPasswords(searchInput.value);
+//     }
+// }
+
+// Also update saveData function to show empty state instead of renderPasswordList
+function saveData(website, username, password) {
+    const userData = JSON.parse(localStorage.getItem("userData")) || [];
+
+    userData.push({ website, username, password });
+
+    localStorage.setItem("userData", JSON.stringify(userData));
+    // Show empty state after saving since search might be empty
     if (!searchInput.value.trim()) {
-        originalRenderPasswordList();
+        showEmptyState();
     } else {
-        // Otherwise, keep the search results
+        // If there's search text, re-run the search
         filterPasswords(searchInput.value);
     }
 }

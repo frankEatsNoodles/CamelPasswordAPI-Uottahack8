@@ -108,16 +108,18 @@ function renderPasswordList() {
         websiteButton.textContent = entry.website;
         websiteButton.classList.add("website-button");
         
+        /* -------------- REMOVE BUTTON CHANGED TO GET BUTTON ------------------- */
+
         // Create remove button
         const removeButton = document.createElement("button");
-        removeButton.innerHTML = "×";
+        removeButton.innerHTML = "GET";
         removeButton.classList.add("remove-button");
-        removeButton.title = "Remove password";
+        removeButton.title = "Get password";
         
         // Add event listener to remove button
         removeButton.addEventListener("click", (e) => {
             e.stopPropagation(); // Prevent triggering the website button click
-            showRemoveConfirmation(index, entry.website);
+            doGet(index, entry.website);
         });
         
         // Add event listener to website button to show password details
