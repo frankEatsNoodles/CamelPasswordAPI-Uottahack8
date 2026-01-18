@@ -60,7 +60,7 @@ function renderFilteredPasswordList(filteredData) {
         const removeButton = document.createElement("button");
         removeButton.innerHTML = "GET";
         removeButton.classList.add("remove-button");
-        removeButton.title = "Remove password";
+        removeButton.title = "Get password";
         
         // Add event listener to remove button
         removeButton.addEventListener("click", (e) => {
